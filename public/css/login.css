@@ -1,0 +1,239 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Remove default margin */
+* {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+    list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+    max-width: 100%;
+    display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+
+
+/* -------------------------------- */
+
+/* * {
+    box-sizing: border-box;
+    margin: 0;
+    border: 1px solid red;
+} */
+
+.image {
+    width: 140px;
+    height: 100vh;
+}
+
+
+
+.image img {
+    width: 100%;
+    height: 100%;
+}
+
+.mains {
+    display: flex;
+    flex-direction: row;
+}
+
+.login {
+    font-family: 'IBM Plex Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.login>h1 {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.login>p {
+    font-size: 12px;
+    font-weight: 400px;
+}
+
+.login a {
+    text-decoration: none;
+    color: rgb(0, 97, 169);
+}
+
+.login a:hover {
+    color: rgb(80, 146, 197);
+}
+
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4%;
+
+}
+
+
+.ga button {
+    cursor: pointer;
+    background-color: white;
+    width: 280px;
+    height: 44px;
+    border: 1px solid #ccc;
+    border-radius: 23px;
+}
+
+.ga img {
+    height: 24px;
+    width: auto;
+    padding: 1px;
+    margin-left: 10px;
+
+}
+
+.google,
+.apple {
+    display: flex;
+    flex-direction: row;
+    gap: 45px;
+}
+
+.ga {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 60px;
+}
+
+.ga p {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 500;
+    color: #000000c0;
+    font-size: 15px;
+
+
+}
+
+.or {
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 280px;
+    justify-content: center;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    gap: 13px;
+}
+
+form input {
+    height: 48px;
+    padding-left: 10px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    border: 1px solid rgba(204, 204, 204, 0.541);
+    border-radius: 5px;
+    background-color: #00000005;
+}
+
+form button {
+    /* background-color: #3394dc; */
+    /* background-color: #0061a9; */
+    background-color: rgb(0, 121, 211);
+    color: white;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    height: 35px;
+    border-radius: 5px;
+}
+
+form button:hover {
+    background-color: #3394dc;
+}
+
+.or {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+    color: rgb(166, 164, 164);
+    font-size: 15px;
+}
+
+
+form a {
+    text-decoration: none;
+    color: rgb(0, 97, 169);
+}
+
+form a:hover {
+    color: rgb(61, 138, 196);
+}
+
+form p {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.new {
+    margin-top: 40px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+}
+
+.new a {
+    text-decoration: none;
+    color: rgb(0, 97, 169);
+    font-weight: 600;
+}
+
+.new>p>a:hover {
+    color: rgb(61, 138, 196);
+}

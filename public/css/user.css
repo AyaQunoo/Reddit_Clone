@@ -1,0 +1,25 @@
+.adv {
+    background: #F6F7F8;
+    border: none;
+    color: black;
+    padding: 10px 25px;
+
+}
+
+.addpost {
+    background: #F6F7F8;
+    width: 90%;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 4px;
+}
+
+.addpost:hover {
+    border: solid 1px #0079D3;
+}
+
+.fas,
+.far {
+    margin: 0 10px;
+}

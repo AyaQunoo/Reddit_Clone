@@ -1,0 +1,19 @@
+.create input,
+.create textarea {
+
+    width: 90%;
+    padding: 10px;
+    border-radius: 4px;
+    border: solid 1px #bdbfc0;
+
+
+}
+
+
+.create {
+    height: 22rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
