@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { CustomError } = require('../utils');
 
 const auth = (req, res, next) => {
   const { token } = req.cookies;
@@ -7,9 +8,12 @@ const auth = (req, res, next) => {
       if (err) {
         res.send({ mesg: 'ERROR' });
       } else {
+        req.user = decoded;
         next();
       }
     });
+  } else {
+    throw new CustomError('unauthorized', 401);
   }
 };
 module.exports = auth;
