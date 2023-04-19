@@ -34,7 +34,7 @@
                 </button>
                 <button>
                     <div class="apple">
-                        <img src="./resources/icons8-apple-logo.svg" alt="">
+                        <img src="../images/icons8-apple-logo.svg" alt="">
                         <p>Continue with Apple</p>
                     </div>
                 </button>
@@ -45,10 +45,11 @@
                 <p>OR</p>
             </div>
 
-            <form action="#">
-                <input type="text" placeholder="USERNAME">
-                <input type="text" placeholder="PASSWORD">
-                <button>LOG IN</button>
+            <form class="loginForm">
+                <input type="text" placeholder="EMAIL" name="email">
+                <input type="text" placeholder="PASSWORD" name="password">
+                <p class="error login"></p>
+                <button type="submit">LOG IN</button>
                 <p>Forgot your <a href="#">username</a> or <a href="#">passsword</a> ?</p>
             </form>
 
@@ -64,7 +65,7 @@
 
 
 
-
+        <script src="../js/login.js"></script>
 
     </main>
 </body>
