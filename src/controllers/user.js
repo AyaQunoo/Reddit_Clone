@@ -1,65 +1,88 @@
+/* eslint-disable no-shadow */
 /* eslint-disable max-len */
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { signUp, login } = require('../database/queries/users');
 
-const { signUpSchema, loginSchema } = require('../utils');
+const { signUp, login, checkUser } = require('../database/queries/users');
 
-const userSignUp = async (req, res) => {
-  const { username, email, password } = req.body;
-  const { error } = signUpSchema.validate({ username, email, password }, { abortEarly: false });
-  if (error) {
-    res.status(400).json({
-      error: true,
-      data: {
-        errors: error.details,
-      },
-    });
-    return;
-  }
-  const result = await login({ email });
-  // console.log(result);
-  if (result.rowCount) {
-    res.status(400).json({
-      error: true,
-      data: {
-        errors: 'email is already exists',
-      },
-    });
-  } else {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    signUp({ username, password: hashedPassword, email }).then(() => res.status(201).json({
-      error: false,
-      data: {
-        data: 'yooour account created successfully',
-      },
-    })).catch(console.log);
-  }
-};
+const {
+  signUpSchema, loginSchema, signToken, CustomError,
+} = require('../utils');
 
-const userLogin = async (req, res) => {
-  const { email, password } = req.body;
-  const { error } = loginSchema.validate({ email, password }, { abortEarly: false });
-  console.log(error);
-  const result = await login({ email });
-  // console.log(result);
-  if (!result.rowCount) {
-    res.status(400).json({
-      error: true,
-      data: {
-        errors: 'user does not exist!please create an account',
-      },
-    });
-  } else {
-    const ismatched = await bcrypt.compare(password, result.rows[0].password);
-    if (ismatched) {
-      const token = await jwt.sign({
-        username: result.rows[0].username,
-      }, process.env.SECRET_KEY);
-      res.cookie('token', token).json({ mesg: 'succes' });
+const userSignUp = (req, res, next) => {
+  const {
+    username, email, password, confirmedPassword,
+  } = req.body;
+
+  signUpSchema.validateAsync({
+    username, email, password, confirmedPassword,
+  }, { abortEarly: false }).then(() => checkUser({ username })).then((result) => {
+    if (result.rowCount) {
+      throw new CustomError('username is already Exists', 400);
     } else {
-      res.json({ mesg: 'wrong password' });
+      return bcrypt.hash(password, 10);
     }
-  }
+  }).then(() => login({ email }))
+    .then((result) => {
+      if (result.rowCount) {
+        throw new CustomError('email is already exists', 400);
+      } else {
+        return bcrypt.hash(password, 10);
+      }
+    })
+    .then((hash) => ({ username, email, password: hash }))
+    .then((data) => signUp(data))
+    .then((data) => data.rows[0])
+    .then((data) => {
+      req.user = data;
+      return signToken(data, { expiresIn: '1d' });
+    })
+    .then((token) => {
+      res.cookie('token', token).json({
+        error: false,
+        data: {
+          message: 'succes',
+        },
+      });
+    })
+    .catch((err) => {
+      next(err);
+    });
 };
-module.exports = { userSignUp, userLogin };
+
+const userLogin = (req, res, next) => {
+  const { email, password } = req.body;
+  loginSchema.validateAsync({ email, password }, { abortEarly: false }).then(() => login({ email })).then((result) => {
+    if (!result.rowCount) {
+      throw new CustomError('user does not exist!please create an account', 400);
+    } else {
+      return result.rows[0];
+    }
+  }).then((data) => {
+    req.user = data;
+    return bcrypt.compare(password, data.password);
+  })
+    .then((ismatched) => {
+      if (!ismatched) {
+        throw new CustomError('wrong password', 400);
+      }
+    })
+    .then(() => {
+      const { id, username, email } = req.user;
+      return signToken({ id, username, email }, { expiresIn: '1d' });
+    })
+    .then((token) => {
+      res.cookie('token', token).json({
+        error: false,
+        data: {
+          message: 'succes',
+        },
+      });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+const logout = (req, res, next) => {
+  res.clearCookie('token').redirect('/').catch((err) => next(err));
+};
+module.exports = { userSignUp, userLogin, logout };
