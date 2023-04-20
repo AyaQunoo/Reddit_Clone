@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
 const path = require('path');
+const auth = require('../middlewares/auth');
 
 router.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'public', 'html', 'login.html'));
@@ -8,10 +9,10 @@ router.get('/login', (req, res) => {
 router.get('/signup', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'public', 'html', 'signup.html'));
 });
-router.get('/createPost', (req, res) => {
+router.get('/createPost', auth, (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'public', 'html', 'createpost.html'));
 });
-router.get('/userhome', (req, res) => {
+router.get('/userhome', auth, (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'public', 'html', 'user_profile.html'));
 });
 

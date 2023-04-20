@@ -1,3 +1,9 @@
 const { loginSchema, signUpSchema } = require('./validation/userSchema');
 
-module.exports = { loginSchema, signUpSchema };
+const { signToken } = require('./jwt/signToken');
+
+const { CustomError } = require('./helper/customError');
+
+module.exports = {
+  loginSchema, signUpSchema, signToken, CustomError,
+};
