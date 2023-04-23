@@ -1,10 +1,7 @@
 /* eslint-disable camelcase */
 const connection = require('../config');
 
-const createPost = (data, id) => {
-  const {
-    title, details, image_url,
-  } = data;
+const createPost = (title, details, image_url, id) => {
   const sql = {
     text: 'INSERT INTO posts(user_id,title,details,image_url) VALUES($1,$2,$3,$4)',
     values: [id, title, details, image_url],
@@ -20,7 +17,7 @@ const getUserPosts = (id) => {
 };
 const getAllPosts = () => {
   const sql = {
-    text: 'SELECT posts.title ,posts.details,posts.created_at,posts.image_url,users.username FROM posts JOIN users ON posts.user_id =users.id; ',
+    text: 'SELECT posts.title ,posts.id,posts.details,posts.created_at,posts.image_url,users.username,json_agg(json_build_object(\'comment_id\',comments.user_id,\'comment\',comments.comments,\'commenter\',users_comment.username,\'creted_at\',comments.created_at)) AS comments,SUM(CASE WHEN votes.vote=\'upvote\' THEN 1 WHEN votes.vote=\'downvote\' THEN -1 WHEN  votes.vote=\'none\' THEN 0 ELSE 0 END) AS up_votes FROM posts LEFT JOIN users ON posts.user_id =users.id LEFT JOIN votes ON posts.id =votes.post_id LEFT JOIN comments ON posts.id =comments.post_id LEFT JOIN users AS users_comment ON comments.user_id=users_comment.id GROUP BY posts.id,users.username ORDER BY up_votes DESC;',
   };
   return connection.query(sql);
 };
@@ -31,8 +28,7 @@ const deletePost = (id) => {
   };
   return connection.query(sql);
 };
-const getPostById = (data) => {
-  const { id } = data;
+const getPostById = (id) => {
   const sql = {
     text: 'SELECT *FROM posts WHERE id=$1',
     values: [id],
@@ -40,10 +36,9 @@ const getPostById = (data) => {
   return connection.query(sql);
 };
 
-const updatePost = (data, id) => {
-  const { title, details, image_url } = data;
+const updatePost = (title, details, image_url, id) => {
   const sql = {
-    text: 'UPDATE posts SET title=$1,details=$2,image_url=$3 WHERE posts.id=$4',
+    text: 'UPDATE posts SET title=$1,details=$2,image_url=$3 WHERE posts.id=$4 RETURNING *',
     values: [title, details, image_url, id],
   };
   return connection.query(sql);

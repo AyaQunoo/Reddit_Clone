@@ -3,6 +3,7 @@
 const bcrypt = require('bcrypt');
 
 const { signUp, login, checkUser } = require('../database/queries/users');
+const getUserInfo = require('../database/queries/profiles');
 
 const {
   signUpSchema, loginSchema, signToken, CustomError,
@@ -85,4 +86,12 @@ const userLogin = (req, res, next) => {
 const logout = (req, res, next) => {
   res.clearCookie('token').redirect('/').catch((err) => next(err));
 };
-module.exports = { userSignUp, userLogin, logout };
+const userIfo = (req, res) => {
+  const { id } = req.params;
+  getUserInfo(id).then((data) => res.status(200).json(data.rows)).catch((err) => {
+    console.log(err);
+  });
+};
+module.exports = {
+  userSignUp, userLogin, logout, userIfo,
+};
