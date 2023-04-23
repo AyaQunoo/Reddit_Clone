@@ -264,6 +264,42 @@ select {
     flex-grow: 1;
 }
 
+.bottom button {
+    display: flex;
+}
+
+.bottom button i {
+    margin-right: 10px;
+}
+
+.bottom {
+    display: flex;
+}
+
+.comments {
+    padding: 20px;
+    display: none;
+    transition: all 0.3s ease;
+}
+
+.comments textarea {
+    width: 90%;
+    padding: 10px;
+    border-radius: 4px;
+    color: #878a8b;
+    border: solid 1px #bdbfc0;
+}
+
+.add_comment button {
+    background: #878a8b;
+    padding: 7px;
+    border-radius: 30px;
+}
+
+.comment__card {
+    margin-bottom: 15px;
+}
+
 .new {
     display: block;
     padding: 10px 16px;
@@ -284,6 +320,7 @@ select {
 .user {
     display: flex;
     align-items: center;
+    margin-bottom: 5px;
 }
 
 .user img {
@@ -315,6 +352,8 @@ select {
 #update-scroll {
     display: flex;
     align-items: center;
+    flex-direction: column;
+    padding: 15px;
 }
 
 #update-scroll button {
@@ -382,7 +421,7 @@ select {
 #aside-header h3 {
     padding: 10px;
     margin-top: auto;
-    color:#1c1c1c;
+    color: #1c1c1c;
 }
 
 .popular-item a {
