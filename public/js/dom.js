@@ -1,5 +1,7 @@
 const main = document.getElementById('main');
+const posts_container = document.querySelector('.posts_container');
 const renderPost = (data) => {
+  console.log(data);
   for (let i = 0; i < data.length; i++) {
     const containerBox = document.createElement('div');
     containerBox.classList.add('container-box');
@@ -69,7 +71,6 @@ const renderPost = (data) => {
       }
     });
     const commentsArr = data[i].comments;
-    console.log(commentsArr);
     // create add comment section
     const addCommentSection = document.createElement('div');
     addCommentSection.classList.add('add_comment');
@@ -91,8 +92,7 @@ const renderPost = (data) => {
 
     // create comment text area
     const commentTextArea = document.createElement('textarea');
-    commentTextArea.name = '';
-    commentTextArea.id = '';
+    commentTextArea.name = 'comment';
     commentTextArea.cols = '30';
     commentTextArea.rows = '6';
     commentTextArea.textContent = 'What are your thoughts?';
@@ -111,7 +111,21 @@ const renderPost = (data) => {
     // append comment as text and comment form to add comment section
     addCommentSection.appendChild(commentAsText);
     addCommentSection.appendChild(commentForm);
-
+    // eslint-disable-next-line no-loop-func
+    commentForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const obj = new FormData(commentForm);
+      const data2 = Object.fromEntries(obj);
+      fetch(`users/${data[i].id}`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data2),
+      }).then((result) => result.json()).then(console.log);
+      window.location.reload();
+    });
     // append add comment section and comment card section to comments container
     commentsContainer.appendChild(addCommentSection);
     commentsArr.forEach((comment) => {
@@ -197,6 +211,6 @@ const renderPost = (data) => {
     innerContent.appendChild(postDesc);
     innerContent.appendChild(postImage);
     innerContent.appendChild(bottomDiv);
-    main.appendChild(containerBox);
+    posts_container.prepend(containerBox);
   }
 };
