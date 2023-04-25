@@ -30,7 +30,7 @@ const sumVotes = (req, res) => {
   allVotes(postId).then((data) => res.status(200).json({
     error: false,
     message: 'success',
-    sum: +data.rows[0].all_votes,
+    sum: data.rows[0].all_votes++,
   }));
 };
 const downVote = (req, res) => {

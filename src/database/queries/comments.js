@@ -5,7 +5,7 @@ const createComment = (data, user_id, post_id) => {
   const { comment } = data;
 
   const sql = {
-    text: 'INSERT INTO comments (user_id,post_id,comments) VALUES($1,$2,$3)',
+    text: 'INSERT INTO comments (user_id,post_id,comments) VALUES($1,$2,$3) RETURNING *',
     values: [user_id, post_id, comment],
   };
   return connection.query(sql);

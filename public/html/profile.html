@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.1/pure-min.css"
+        crossorigin="anonymous">
+
+    <!-- Load font awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/user.css">
+
+    <title>Reddit</title>
+</head>
+
+<body>
+    <nav>
+        <div class="left">
+            <a href="/userhome"><img id="logo-home" src="../images/reddit-logo.png" alt="reddit logo"></a>
+            <a href="/userhome"><img id="logo-head" src="../images/reddit-head.png" alt="reddit logo"></a>
+            <a href="/userhome"><i class="fas fa-home"></i> home</a>
+        </div>
+
+        <input type="text" value="&#xf002; Search Reddit" id="search-bar" class="fas fa-search">
+        <div class="right">
+            <div>
+                <i class="fas fa-comment-dots"></i>
+                <i class="far fa-bell"></i>
+                <a href="/createpost"> <i class="fas fa-plus"></i></a>
+                <a href="" class="button adv">Advertise</a>
+
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">
+                    <div class="user">
+                        <img src="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTN8fG5pbnRlbmRvfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=50&q=60"
+                            alt="">
+                        <h4>user Name</h4>
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+
+
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="users/logout">LOGOUT <i class="fas fa-sign-out-alt"></i></a>
+                </div>
+            </div>
+        </div>
+
+
+    </nav>
+
+    <div id="wrapper">
+
+
+
+
+
+
+
+        <div id="main-wrapper">
+            <section id="main">
+                <div>
+
+
+                    <div class="container-box new">
+                        <div id="updates-reddit">
+                            <div id="popular-links">
+                                <button class="fas fa-fire"> Hot </button>
+                                <button class="fas fa-certificate"> New </button>
+                                <button class="fas fa-chart-bar"> Top </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="posts_container">
+                        <div class="container-box">
+                            <div class="votes">
+                                <div>
+                                    <button><i class="fas fa-arrow-up"></i></button>
+                                    <h4>55<span>k</span></h4>
+                                    <button><i class="fas fa-arrow-down"></i></button>
+                                </div>
+
+                            </div>
+                            <div id="update-scroll">
+                                <div id="inner-content">
+                                    <div class="top">
+                                        <div class="user">
+                                            <img src="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTN8fG5pbnRlbmRvfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=50&q=60"
+                                                alt="">
+                                            <h4>user Name <span> created at</span></h4>
+
+                                        </div>
+                                        <button class="button">join</button>
+                                    </div>
+                                    <h3>Some interesting story about the new post to get people to engage with my story.
+                                    </h3>
+                                    <img class="post-img"
+                                        src="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTN8fG5pbnRlbmRvfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                                        alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="aside">
+                <div class="wrapper">
+
+                    <div class="profile-card">
+                        <div class="profile-header">
+
+                        </div>
+                        <div class="profile-body">
+                            <div class="author-img">
+                                <img src="../images/google logo.png" alt="">
+                            </div>
+                            <div class="name">Robert smith</div>
+                            <div class="intro">
+                                <p>
+                                    robert@gmail.com
+                                </p>
+                            </div>
+                            <div class="post">
+                                <button class="button">NEW POST</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </section>
+        </div>
+        <!-- wrapper div  -->
+    </div>
+
+    <script src="./js/dom.js"></script>
+    <script src="./js/user.js"></script>
+    <script src="../js/userHome.js"></script>
+    <script src="https://kit.fontawesome.com/9e866e3193.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

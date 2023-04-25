@@ -2,6 +2,7 @@
 const connection = require('../config');
 
 const createPost = (title, details, image_url, id) => {
+  console.log(image_url, 'kskks');
   const sql = {
     text: 'INSERT INTO posts(user_id,title,details,image_url) VALUES($1,$2,$3,$4)',
     values: [id, title, details, image_url],
