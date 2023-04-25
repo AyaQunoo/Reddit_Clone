@@ -23,3 +23,13 @@
 .far {
     margin: 0 10px;
 }
+
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 8px 13px;
+    text-decoration: none;
+    display: block;
+    align-items: center;
+    display: flex;
+}

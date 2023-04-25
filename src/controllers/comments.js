@@ -4,10 +4,13 @@ const creatComments = (req, res) => {
   const data = req.body;
   const { id } = req.user;
   const { postId } = req.params;
-  createComment(data, id, postId).then(() => res.status(200).json({
-    error: false,
-    message: 'your comment created succesfully',
-  }));
+  createComment(data, id, postId).then((data) => {
+    res.status(200).json({
+      error: false,
+      message: 'your comment created succesfully',
+      data: data.rows,
+    });
+  });
 };
 const getComments = (req, res, next) => {
   const { postId } = req.params;
