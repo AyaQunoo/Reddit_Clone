@@ -1,8 +1,8 @@
 const {
-  userSignUp, userLogin, logout, userIfo,
+  userSignUp, userLogin, logout, userIfo, dataUser,
 } = require('./user');
 const {
-  createPostControler, getAllUsersPosts, getPostsById, getUsersPosts, deletePosts,updatePosts
+  createPostControler, getAllUsersPosts, getPostsById, getUsersPosts, deletePosts, updatePosts,
 } = require('./posts');
 const { creatComments, getComments, deleteComment } = require('./comments');
 const { serverError } = require('./Errors/serverError');
@@ -28,4 +28,5 @@ module.exports = {
   downVote,
   sumVotes,
   updatePosts,
+  dataUser,
 };

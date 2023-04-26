@@ -4,7 +4,7 @@ const {
   addVote, allVotes, checkVote, updateVote,
 } = require('../database/queries/votes');
 
-const upVote = (req, res) => {
+const upVote = (req, res, next) => {
   const { postId } = req.params;
   const { id } = req.user;
   checkVote(id, postId).then((data) => {
@@ -14,15 +14,15 @@ const upVote = (req, res) => {
       updateVote(vote, id, postId).then(() => res.status(201).json({
         error: false,
         message: 'vote has been  updated successfuly!!',
-      }));
+      })).catch(err => next(err));
     } else {
       addVote(id, postId, 'upvote').then((data) => res.status(200).json({
         error: false,
         message: 'vote has been  added successfuly!!',
         vote: data.rows[0],
-      }));
+      })).catch(err => next(err));
     }
-  });
+  }).catch(err => next(err));
 };
 
 const sumVotes = (req, res) => {
@@ -30,7 +30,7 @@ const sumVotes = (req, res) => {
   allVotes(postId).then((data) => res.status(200).json({
     error: false,
     message: 'success',
-    sum: data.rows[0].all_votes++,
+    sum: +data.rows[0].all_votes,
   }));
 };
 const downVote = (req, res) => {

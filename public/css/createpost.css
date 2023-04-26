@@ -9,6 +9,13 @@
 
 }
 
+.error {
+    color: red;
+}
+
+.add {
+    width: 30%;
+}
 
 .create {
     height: 22rem;
@@ -16,4 +23,8 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+
+.created {
+    color: green;
 }

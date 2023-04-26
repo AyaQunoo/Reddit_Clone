@@ -34,8 +34,9 @@ const getPostsById = (req, res) => {
   getPostById(id).then((data) => res.status(200).json(data.rows));
 };
 const deletePosts = (req, res, next) => {
-  const { id } = req.params;
-  deletePost(id).then(() => res.status(200).json({
+  const { PostId } = req.params;
+  const { id } = req.user;
+  deletePost(PostId, id).then(() => res.status(204).json({
     error: false,
     data: {
       message: 'post deleted successfully',
