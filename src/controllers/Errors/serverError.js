@@ -35,5 +35,6 @@ const serverError = (err, req, res, next) => {
       message: 'INTERNAL SERVER ERROR!!!',
     },
   });
+  console.log(err);
 };
 module.exports = { serverError };

@@ -6,7 +6,7 @@ require('dotenv').config();
 const { DB_URL } = process.env;
 const option = {
   connectionString: DB_URL,
-  SSl: true,
+  ssl: true,
 };
 
 const connection = new Pool(option);
