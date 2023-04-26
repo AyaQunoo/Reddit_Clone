@@ -3,6 +3,9 @@ const router = require('express').Router();
 const path = require('path');
 const auth = require('../middlewares/auth');
 
+router.get('/profile/:username', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'public', 'html', 'profile.html'));
+});
 router.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'public', 'html', 'login.html'));
 });

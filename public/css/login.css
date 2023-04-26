@@ -131,6 +131,10 @@ select {
 
 }
 
+.error {
+    color: red
+}
+
 .google,
 .apple {
     display: flex;

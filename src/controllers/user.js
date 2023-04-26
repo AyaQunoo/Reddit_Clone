@@ -84,14 +84,18 @@ const userLogin = (req, res, next) => {
     });
 };
 const logout = (req, res, next) => {
-  res.clearCookie('token').redirect('/').catch((err) => next(err));
+  res.clearCookie('token').redirect('/');
 };
-const userIfo = (req, res) => {
-  const { id } = req.params;
-  getUserInfo(id).then((data) => res.status(200).json(data.rows)).catch((err) => {
-    console.log(err);
-  });
+const userIfo = (req, res, next) => {
+  const { username } = req.params;
+  getUserInfo(username).then((data) => res.status(200).json(data.rows)).catch((err) => next(err));
 };
+const dataUser = (req, res) => {
+  const { user } = req;
+  res.json({ user });
+};
+
+module.exports = dataUser;
 module.exports = {
-  userSignUp, userLogin, logout, userIfo,
+  userSignUp, userLogin, logout, userIfo, dataUser,
 };

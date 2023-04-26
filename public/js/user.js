@@ -1,5 +1,4 @@
-/* eslint-disable no-undef */
-
-fetch('users/allPosts').then((res) => res.json()).then((data) => {
-  renderPost(data);
+const usernameAccount = document.querySelector('.username');
+fetch('/users/profile').then((res) => res.json()).then((data) => {
+  usernameAccount.textContent = data.user.username;
 });

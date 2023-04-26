@@ -37,18 +37,15 @@
             <div class="dropdown">
                 <button class="dropbtn">
                     <div class="user">
-                        <img src="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTN8fG5pbnRlbmRvfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=50&q=60"
-                            alt="">
-                        <h4>user Name</h4>
+                        <img src="https://th.bing.com/th/id/OIP.R746etSe6jLms0H9VCGV7AAAAA?pid=ImgDet&rs=1" alt="">
+                        <h4 class="username">user Name</h4>
                         <i class="fa fa-caret-down"></i>
                     </div>
 
 
                 </button>
                 <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
+                    <a href="users/logout">LOGOUT <i class="fas fa-sign-out-alt"></i></a>
                 </div>
             </div>
         </div>
@@ -72,11 +69,11 @@
 
 
                     <form class="container-box new create">
-                        <div class="top"><button>post</button></div>
                         <input type="text" placeholder="Title" name="title">
+                        <p class="error"></p>
                         <textarea name="details" id="" cols="30" rows="10" placeholder="Text (optional)"></textarea>
-                        <input name="image_url" type="text">
-                        <p class="error">ldldl</p>
+                        <input name="image_url" type="text" placeholder="image url (optional)">
+                        <p class="created"></p>
                         <button type="submit" class="add">POST</button>
                     </form>
 
@@ -129,6 +126,8 @@
         <!-- wrapper div  -->
     </div>
     <script src="../js/addPost.js"></script>
+    <script src="../js/user.js"></script>
+    <script></script>
     <script src="https://kit.fontawesome.com/9e866e3193.js" crossorigin="anonymous"></script>
 </body>
 

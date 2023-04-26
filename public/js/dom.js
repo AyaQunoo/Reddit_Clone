@@ -1,5 +1,24 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable camelcase */
 const posts_container = document.querySelector('.posts_container');
 
+const resetTime = (creatAt) => {
+  let theTime = '';
+  const now = Date.now();
+  const timesTamp = new Date(creatAt);
+  const melSecond = now - timesTamp.getTime();
+  const toMinutes = Math.floor(melSecond / (1000 * 60));
+  const toHours = Math.floor(melSecond / (1000 * 60 * 60));
+  if (melSecond < (1000 * 60 * 60)) {
+    theTime = `${toMinutes} minutes ago `;
+  } else if (melSecond < (1000 * 60 * 60 * 24)) {
+    theTime = `${toHours} hours ago `;
+  } else {
+    theTime = timesTamp.toISOString().slice(0, 10);
+  }
+
+  return theTime;
+};
 const createComment = (comment) => {
   // create comment card section
   const commentCardSection = document.createElement('div');
@@ -11,27 +30,26 @@ const createComment = (comment) => {
 
   // create user image
   const userImage = document.createElement('img');
-  userImage.src = 'https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTN8fG5pbnRlbmRvfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60';
-  userImage.alt = '';
+  userImage.src = 'https://th.bing.com/th/id/OIP.R746etSe6jLms0H9VCGV7AAAAA?pid=ImgDet&rs=1';
 
   // create user name
   const userName2 = document.createElement('h4');
-  userName2.textContent = comment.commenter;
+  userName2.textContent = comment.username;
 
   // create created at span
   const createdAtSpan = document.createElement('span');
-  createdAtSpan.textContent = comment.creted_at;
+  createdAtSpan.textContent = resetTime(comment.created_at);
 
   // append created at span to user name
-  userName2.appendChild(createdAtSpan);
 
   // append user image and user name to user div
   userDiv.appendChild(userImage);
   userDiv.appendChild(userName2);
+  userDiv.appendChild(createdAtSpan);
 
   // create comment text
   const commentText = document.createElement('p');
-  commentText.textContent = comment.comment;
+  commentText.textContent = comment.comments;
 
   // append user div and comment text to comment card section
   commentCardSection.appendChild(userDiv);
@@ -53,7 +71,6 @@ const renderPost = (data) => {
     const voteCount = document.createElement('h4');
 
     upVoteButton.addEventListener('click', (e) => {
-      console.log('heeyyy');
       fetch(`/users/up/${data[i].id}`, {
         method: 'POST',
         headers: {
@@ -61,21 +78,16 @@ const renderPost = (data) => {
           'Content-Type': 'application/json',
         },
       }).then(() => fetch(`/users/votes/${data[i].id}`).then((res) => res.json()).then((data) => {
-        console.log(data);
-
         voteCount.textContent = data.sum;
       }));
     });
     fetch(`/users/votes/${data[i].id}`).then((res) => res.json()).then((data) => {
-      console.log(data);
-
       voteCount.textContent = data.sum;
     });
 
     const downVoteButton = document.createElement('button');
     downVoteButton.innerHTML = '<i class="fas fa-arrow-down"></i>';
     downVoteButton.addEventListener('click', (e) => {
-      console.log('heeyyy');
       fetch(`/users/down/${data[i].id}`, {
         method: 'POST',
         headers: {
@@ -83,8 +95,6 @@ const renderPost = (data) => {
           'Content-Type': 'application/json',
         },
       }).then(() => fetch(`/users/votes/${data[i].id}`).then((res) => res.json()).then((data) => {
-        console.log(data);
-
         voteCount.textContent = data.sum;
       }));
     });
@@ -104,13 +114,15 @@ const renderPost = (data) => {
     user.classList.add('user');
 
     const userImg = document.createElement('img');
-    userImg.src = 'https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTN8fG5pbnRlbmRvfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=50&q=60';
+    userImg.src = 'https://th.bing.com/th/id/OIP.R746etSe6jLms0H9VCGV7AAAAA?pid=ImgDet&rs=1';
 
-    const userName = document.createElement('h4');
+    const userName = document.createElement('a');
+    userName.classList.add('nameUser');
     userName.textContent = data[i].username;
+    userName.href = `/profile/${data[i].username}`;
 
     const userNameSpan = document.createElement('span');
-    userNameSpan.textContent = data[i].created_at;
+    userNameSpan.textContent = resetTime(data[i].created_at);
 
     const postButton = document.createElement('button');
     postButton.classList.add('button');
@@ -146,18 +158,6 @@ const renderPost = (data) => {
     const addCommentSection = document.createElement('div');
     addCommentSection.classList.add('add_comment');
 
-    // create comment as text
-    const commentAsText = document.createElement('p');
-    commentAsText.textContent = 'comment as ';
-
-    // create username link
-    const usernameLink = document.createElement('a');
-    usernameLink.href = '#';
-    usernameLink.textContent = 'user name';
-
-    // append username link to comment as text
-    commentAsText.appendChild(usernameLink);
-
     // create comment form
     const commentForm = document.createElement('form');
 
@@ -179,8 +179,7 @@ const renderPost = (data) => {
     // append comment button to comment form
     commentForm.appendChild(commentButton);
 
-    // append comment as text and comment form to add comment section
-    addCommentSection.appendChild(commentAsText);
+    // append comment as text and comment form to add comment sectio
     addCommentSection.appendChild(commentForm);
     // eslint-disable-next-line no-loop-func
     commentForm.addEventListener('submit', (e) => {
@@ -194,7 +193,15 @@ const renderPost = (data) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data2),
-      }).then((result) => result.json()).then((data) => console.log(data.data));
+      }).then((result) => result.json()).then((data) => {
+        if (data.data.message === 'unauthorized') {
+          alert('You must be logged in to add comment');
+        }
+        const comment = data.data[0];
+        createComment(comment);
+        const containerr = createComment(comment);
+        commentsContainer.appendChild(containerr);
+      });
     });
     // append add comment section and comment card section to comments container
     commentsContainer.appendChild(addCommentSection);
@@ -223,7 +230,7 @@ const renderPost = (data) => {
     saveBtn.appendChild(saveIcon);
     saveBtn.appendChild(document.createTextNode('Save'));
     bottomDiv.appendChild(saveBtn);
-    const divDrop = document.createElement('div')
+    const divDrop = document.createElement('div');
     divDrop.classList.add('dropdown');
     const moreBtn = document.createElement('button');
     moreBtn.appendChild(document.createTextNode('...'));
@@ -237,22 +244,21 @@ const renderPost = (data) => {
     deleteIcon.classList.add('fas', 'fa-trash');
     deleteBtn.appendChild(deleteIcon);
     deleteBtn.appendChild(document.createTextNode('Delete'));
-
-    // create the Edit button
-    const editBtn = document.createElement('a');
-    const editIcon = document.createElement('i');
-    editIcon.classList.add('fas', 'fa-pen');
-    editBtn.appendChild(editIcon);
-    editBtn.appendChild(document.createTextNode('EDIT'));
+    deleteBtn.addEventListener('click', (e) => {
+      fetch(`/users/post/${data[i].id}`, {
+        method: 'DELETE',
+      }).then((res) => {
+        if (res.status === 204) {
+          containerBox.remove();
+        }
+      });
+    });
 
     // add the buttons to the dropdown content container
     dropdownContent.appendChild(deleteBtn);
-    dropdownContent.appendChild(editBtn);
     divDrop.appendChild(moreBtn);
     divDrop.appendChild(dropdownContent);
     bottomDiv.appendChild(divDrop);
-    // Append the bottom div to an existing HTML element on the page, such as the body or a container div
-
     // append child elements
     containerBox.appendChild(votes);
     votes.appendChild(votesWrapper);
@@ -264,7 +270,7 @@ const renderPost = (data) => {
     top.appendChild(user);
     user.appendChild(userImg);
     user.appendChild(userName);
-    userName.appendChild(userNameSpan);
+    user.appendChild(userNameSpan);
     top.appendChild(postButton);
     innerContent.appendChild(postTitle);
     innerContent.appendChild(postDesc);
