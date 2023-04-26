@@ -18,7 +18,7 @@ signupForm.addEventListener('submit', (e) => {
   } else if (!data.password.match(/^[a-zA-Z0-9]{5,30}$/)) {
     error.textContent = 'Password must be between 5 and 30 characters and contain only letters and numbers';
   } else {
-    fetch('users/signUp', {
+    fetch('/users/signUp', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
